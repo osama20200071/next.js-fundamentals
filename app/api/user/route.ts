@@ -7,7 +7,7 @@ const WithUser = (handler: Handler): Handler => {
     const user = await getCurrentUser()
 
     if (!user) {
-      return NextResponse.redirect(new URL('/signin', req.url))
+      return NextResponse.redirect(new URL('/signin', req.url), { status: 401 })
     }
 
     return handler(req)

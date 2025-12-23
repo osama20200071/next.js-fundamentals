@@ -1,7 +1,7 @@
 import { db } from '@/db'
 import { getSession } from './auth'
 import { eq } from 'drizzle-orm'
-// import { cache } from 'react'
+import { cache } from 'react'
 import { issues, users } from '@/db/schema'
 import { mockDelay } from './utils'
 import { unstable_cacheTag as cacheTag } from 'next/cache'
@@ -17,8 +17,9 @@ export const getUserByEmail = async (email: string) => {
   }
 }
 
-export const getCurrentUser = async () => {
+export const getCurrentUser = cache(async () => {
   await mockDelay(800)
+  console.log('Getting current user')
   try {
     const session = await getSession()
     if (!session) return null
@@ -32,7 +33,7 @@ export const getCurrentUser = async () => {
     console.error(error)
     return null
   }
-}
+})
 
 export const getIssues = async () => {
   'use cache'

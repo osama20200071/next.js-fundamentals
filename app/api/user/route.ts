@@ -17,3 +17,8 @@ const WithUser = (handler: Handler): Handler => {
 export const GET = WithUser(async () => {
   return NextResponse.json({ message: 'testing' })
 })
+
+// Other HTTP methods you can implement:
+// export async function PUT(request: Request) { ... }
+// export async function DELETE(request: Request) { ... }
+// export async function PATCH(request: Request) { ... }

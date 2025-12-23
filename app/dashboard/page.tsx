@@ -1,4 +1,4 @@
-import { getCurrentUser, getIssues } from '@/lib/dal'
+import { getIssues } from '@/lib/dal'
 import Link from 'next/link'
 import Button from '../components/ui/Button'
 import { PlusIcon } from 'lucide-react'
@@ -6,14 +6,13 @@ import Badge from '../components/ui/Badge'
 import { formatRelativeTime } from '@/lib/utils'
 import { Priority, Status } from '@/lib/types'
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema'
-import { redirect } from 'next/navigation'
 
 export default async function DashboardPage() {
-  const user = await getCurrentUser()
-
-  if (!user) {
-    redirect('/signin')
-  }
+  //! this was causing the skeleton to always appear
+  // const user = await getCurrentUser()
+  // if (!user) {
+  //   redirect('/signin')
+  // }
 
   const issues = await getIssues()
 
@@ -34,7 +33,7 @@ export default async function DashboardPage() {
       {issues.length > 0 ? (
         <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-dark-border-default bg-white dark:bg-dark-high shadow-sm">
           {/* Header row */}
-          <div className="grid grid-cols-12 gap-4 px-6 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-dark-elevated border-b border-gray-200 dark:border-dark-border-default">
+          <div className="grid grid-cols-12 gap-4 px-6 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-dark-elevated border-b border-gray-200 dark:border-dark-border-default">
             <div className="col-span-5">Title</div>
             <div className="col-span-2">Status</div>
             <div className="col-span-2">Priority</div>

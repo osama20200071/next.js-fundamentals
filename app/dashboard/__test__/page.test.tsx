@@ -89,4 +89,17 @@ describe('dashboard', () => {
     expect(screen.getByText(ISSUE_PRIORITY.high.label)).toBeInTheDocument()
     expect(screen.getAllByText('2 days ago')).toHaveLength(2)
   })
+
+  it('renders empty state when no issues are available', async () => {
+    vi.mocked(getIssues).mockResolvedValue([])
+
+    const Component = await DashboardPage()
+    render(Component)
+
+    expect(screen.getByText('No issues found')).toBeInTheDocument()
+    expect(screen.getByText('Create Issue')).toBeInTheDocument()
+    expect(
+      screen.getByText('Get started by creating your first issue.')
+    ).toBeInTheDocument()
+  })
 })
